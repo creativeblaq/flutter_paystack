@@ -26,6 +26,10 @@ class CheckoutWidget extends StatefulWidget {
   final BankServiceContract bankService;
   final CardServiceContract cardsService;
   final String publicKey;
+  final Color? backgroundColor;
+  final Color? secondary;
+  final bool showNameField;
+  final String? buttonText;
 
   CheckoutWidget({
     required this.method,
@@ -37,6 +41,10 @@ class CheckoutWidget extends StatefulWidget {
     this.logo,
     this.hideEmail = false,
     this.hideAmount = false,
+    this.backgroundColor,
+    this.secondary,
+    required this.showNameField,
+    required this.buttonText,
   });
 
   @override
@@ -136,15 +144,16 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
     return new CustomAlertDialog(
       expanded: true,
       fullscreen: widget.fullscreen,
-      titlePadding: EdgeInsets.all(0.0),
+      titlePadding: EdgeInsets.zero,
+      contentPadding: EdgeInsets.zero,
       onCancelPress: onCancelPress,
       title: _buildTitle(),
-      content: new Container(
-        child: new SingleChildScrollView(
+      content: Container(
+        child: SingleChildScrollView(
           child: GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             behavior: HitTestBehavior.translucent,
-            child: new Container(
+            child: Container(
                 padding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 10.0),
                 child: Column(
@@ -165,7 +174,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
   }
 
   Widget _buildTitle() {
-    final accentColor = Theme.of(context).accentColor;
+    final secondary = Theme.of(context).colorScheme.secondary;
     var emailAndAmount = Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
@@ -175,7 +184,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
             key: Key("ChargeEmail"),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: Colors.grey, fontSize: 12.0),
+            style: const TextStyle(fontSize: 12.0),
           ),
         if (!widget.hideAmount && !_charge.amount.isNegative)
           Row(
@@ -185,7 +194,9 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
             children: <Widget>[
               const Text(
                 'Pay',
-                style: const TextStyle(fontSize: 14.0, color: Colors.black54),
+                style: const TextStyle(
+                  fontSize: 14.0,
+                ),
               ),
               SizedBox(
                 width: 5.0,
@@ -229,32 +240,32 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
             ],
           ),
         ),
-        if (_showTabs) buildCheckoutMethods(accentColor)
+        if (_showTabs) buildCheckoutMethods(secondary)
       ],
     );
   }
 
-  Widget buildCheckoutMethods(Color accentColor) {
+  Widget buildCheckoutMethods(Color secondary) {
     return AnimatedSize(
       duration: const Duration(milliseconds: 300),
       vsync: this,
       curve: Curves.fastOutSlowIn,
       child: new Container(
-        color: Colors.grey.withOpacity(0.1),
+        // color: Colors.grey.withOpacity(0.1),
         height: _tabHeight,
         alignment: Alignment.center,
         child: new TabBar(
           controller: _tabController,
           isScrollable: true,
-          unselectedLabelColor: Colors.black54,
-          labelColor: accentColor,
+          unselectedLabelColor: Colors.grey[700],
+          labelColor: secondary,
           labelStyle:
               new TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
           indicator: new ShapeDecoration(
             shape: RoundedRectangleBorder(
                   borderRadius: tabBorderRadius,
                   side: BorderSide(
-                    color: accentColor,
+                    color: secondary,
                     width: 1.0,
                   ),
                 ) +
@@ -303,11 +314,17 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
             hideAmount: widget.hideAmount,
             onCardChange: (PaymentCard? card) {
               if (card == null) return;
+              if (widget.showNameField) {
+                _charge.card!.name = card.name;
+                //_charge.addParameter('account_name', card.name ?? '');
+              }
               _charge.card!.number = card.number;
               _charge.card!.cvc = card.cvc;
               _charge.card!.expiryMonth = card.expiryMonth;
               _charge.card!.expiryYear = card.expiryYear;
             },
+            showNameField: widget.showNameField,
+            buttonText: widget.buttonText,
           )),
       new MethodItem(
         text: 'Bank',

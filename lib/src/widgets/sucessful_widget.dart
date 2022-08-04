@@ -54,7 +54,7 @@ class _SuccessfulWidgetState extends State<SuccessfulWidget>
             }
           });
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) => _startCountdown());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _startCountdown());
   }
 
   @override
@@ -97,7 +97,7 @@ class _SuccessfulWidgetState extends State<SuccessfulWidget>
                 ? new Container()
                 : new Text('You paid ${Utils.formatAmount(widget.amount)}',
                     style: const TextStyle(
-                      color: Colors.black54,
+                      //color: Colors.black54,
                       fontWeight: FontWeight.normal,
                       fontSize: 14.0,
                     )),

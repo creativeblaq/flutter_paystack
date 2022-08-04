@@ -3,7 +3,7 @@ import 'package:flutter_paystack/src/common/paystack.dart';
 import 'package:flutter_paystack/src/widgets/animated_widget.dart';
 import 'package:flutter_paystack/src/widgets/buttons.dart';
 
-class ErrorWidget extends StatelessWidget {
+class ErrorWidget extends StatefulWidget {
   final TickerProvider vSync;
   final AnimationController controller;
   final CheckoutMethod method;
@@ -28,16 +28,27 @@ class ErrorWidget extends StatelessWidget {
     controller.forward();
   }
 
+  @override
+  State<ErrorWidget> createState() => _ErrorWidgetState();
+}
+
+class _ErrorWidgetState extends State<ErrorWidget> {
   final emptyContainer = new Container();
+
+  @override
+  void dispose() {
+    widget.controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     // Remove 'Retry buttons for bank payment because when you retry a transaction it ret
     var buttonMargin =
-        isCardPayment ? new SizedBox(height: 5.0) : emptyContainer;
+        widget.isCardPayment ? new SizedBox(height: 5.0) : emptyContainer;
     return new Container(
       child: new CustomAnimatedWidget(
-        controller: controller,
+        controller: widget.controller,
         child: new Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -48,32 +59,34 @@ class ErrorWidget extends StatelessWidget {
             ),
             new SizedBox(height: 10.0),
             new Text(
-              text!,
+              widget.text!,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Colors.black54,
+                //color: Colors.black54,
                 fontWeight: FontWeight.w500,
                 fontSize: 14.0,
               ),
             ),
             new SizedBox(height: 25.0),
-            isCardPayment
+            widget.isCardPayment
                 ? new WhiteButton(
-                    onPressed: tryAnotherCard, text: 'Try another card')
+                    onPressed: widget.tryAnotherCard, text: 'Try another card')
                 : emptyContainer,
             buttonMargin,
-            method == CheckoutMethod.selectable || method == CheckoutMethod.bank
+            widget.method == CheckoutMethod.selectable ||
+                    widget.method == CheckoutMethod.bank
                 ? new WhiteButton(
-                    onPressed: payWithBank,
-                    text: method == CheckoutMethod.bank || !isCardPayment
+                    onPressed: widget.payWithBank,
+                    text: widget.method == CheckoutMethod.bank ||
+                            !widget.isCardPayment
                         ? 'Retry'
                         : 'Try paying with your bank account',
                   )
                 : emptyContainer,
             buttonMargin,
-            isCardPayment
+            widget.isCardPayment
                 ? new WhiteButton(
-                    onPressed: startOverWithCard,
+                    onPressed: widget.startOverWithCard,
                     text: 'Start over with same card',
                     iconData: Icons.refresh,
                     bold: false,

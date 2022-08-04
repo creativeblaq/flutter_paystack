@@ -46,7 +46,7 @@ class AccentButton extends StatelessWidget {
     return _BaseButton(
       onPressed: onPressed,
       showProgress: showProgress,
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).colorScheme.secondary,
       borderSide: BorderSide.none,
       textStyle: const TextStyle(
           fontSize: 14.0, color: Colors.white, fontWeight: FontWeight.bold),
@@ -104,12 +104,9 @@ class _BaseButton extends StatelessWidget {
                   ? new Container(
                       width: 20.0,
                       height: 20.0,
-                      child: new Theme(
-                          data: Theme.of(context)
-                              .copyWith(accentColor: Colors.white),
-                          child: new CircularProgressIndicator(
-                            strokeWidth: 2.0,
-                          )),
+                      child: new CircularProgressIndicator(
+                        strokeWidth: 2.0,
+                      ),
                     )
                   : iconData == null
                       ? child == null

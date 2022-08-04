@@ -31,7 +31,7 @@ void main() {
         service: MockedCardService(),
         onResponse: (v) {},
         onProcessingChange: (v) {},
-        onCardChange: (v) {},
+        onCardChange: (v) {}, showNameField: false,
       ),
     );
 
@@ -73,7 +73,7 @@ void main() {
           onResponse: (v) {},
           onProcessingChange: (v) {},
           onCardChange: (v) {},
-          hideAmount: true,
+          hideAmount: true, showNameField: false,
         )));
 
         await tester.pumpAndSettle();

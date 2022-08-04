@@ -126,6 +126,8 @@ class PaystackPlugin {
     Widget? logo,
     bool hideEmail = false,
     bool hideAmount = false,
+    bool showNameFiled = false,
+    String? buttonText
   }) async {
     return _Paystack(publicKey).checkout(
       context,
@@ -133,6 +135,8 @@ class PaystackPlugin {
       method: method,
       fullscreen: fullscreen,
       logo: logo,
+      showNameField: showNameFiled,
+      buttonText: buttonText,
       hideAmount: hideAmount,
       hideEmail: hideEmail,
     );
@@ -153,12 +157,14 @@ class _Paystack {
   _Paystack(this.publicKey);
 
   Future<CheckoutResponse> chargeCard(
-      {required BuildContext context, required Charge charge}) {
+      {required BuildContext context, required Charge charge, 
+    bool showNameField = true,
+    String? buttonText}) {
     return new CardTransactionManager(
             service: CardService(),
             charge: charge,
             context: context,
-            publicKey: publicKey)
+            publicKey: publicKey, showNameField: showNameField, buttonText: buttonText)
         .chargeCard();
   }
 
@@ -170,6 +176,8 @@ class _Paystack {
     bool hideEmail = false,
     bool hideAmount = false,
     Widget? logo,
+    bool showNameField= true,
+    String? buttonText
   }) async {
     assert(() {
       _validateChargeAndKey(charge);
@@ -201,7 +209,7 @@ class _Paystack {
         fullscreen: fullscreen,
         logo: logo,
         hideAmount: hideAmount,
-        hideEmail: hideEmail,
+        hideEmail: hideEmail, showNameField: showNameField, buttonText: buttonText,
       ),
     );
     return response == null ? CheckoutResponse.defaults() : response;

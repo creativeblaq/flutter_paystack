@@ -10,6 +10,9 @@ class BaseTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
   final String? initialValue;
+  final bool isNumberField;
+  Color? secondaryColor;
+  Color? textColor;
 
   BaseTextField({
     Key? key,
@@ -21,10 +24,14 @@ class BaseTextField extends StatelessWidget {
     this.validator,
     this.controller,
     this.initialValue,
+    this.secondaryColor,
+    this.textColor, this.isNumberField =true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //secondaryColor = secondaryColor ;
+    textColor = textColor ?? Theme.of(context).colorScheme.onBackground;
     return TextFormField(
       controller: controller,
       inputFormatters: inputFormatters,
@@ -32,11 +39,15 @@ class BaseTextField extends StatelessWidget {
       validator: validator,
       maxLines: 1,
       initialValue: initialValue,
-      keyboardType: TextInputType.number,
+      keyboardType: isNumberField?
+      TextInputType.number:TextInputType.name,
+      style: TextStyle(color: textColor),
       decoration: new InputDecoration(
         border: OutlineInputBorder(),
         labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.grey, fontSize: 14.0),
+        labelStyle: TextStyle(
+            color: secondaryColor ?? Theme.of(context).colorScheme.secondary,
+            fontSize: 14.0),
         suffixIcon: suffix == null
             ? null
             : new Padding(
@@ -46,12 +57,16 @@ class BaseTextField extends StatelessWidget {
         errorStyle: const TextStyle(fontSize: 12.0),
         errorMaxLines: 3,
         isDense: true,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.grey, width: 0.5)),
+            borderSide: BorderSide(color: Colors.grey[700]!, width: 0.5)),
         focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Theme.of(context).accentColor, width: 1.0)),
+            borderSide: BorderSide(
+                color:
+                    secondaryColor ?? Theme.of(context).colorScheme.secondary,
+                width: 1.0)),
         hintText: hintText,
+        hintStyle: TextStyle(color: textColor, fontSize: 14.0),
       ),
     );
   }

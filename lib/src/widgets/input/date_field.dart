@@ -7,15 +7,22 @@ import 'package:flutter_paystack/src/widgets/common/input_formatters.dart';
 import 'package:flutter_paystack/src/widgets/input/base_field.dart';
 
 class DateField extends BaseTextField {
+
+  final Color? secondaryColor;
+  final Color? textColor;
+
   DateField({
     Key? key,
     required PaymentCard? card,
-    required FormFieldSetter<String> onSaved,
+    required FormFieldSetter<String> onSaved,this.secondaryColor, this.textColor,
+
   }) : super(
           key: key,
           labelText: 'CARD EXPIRY',
           hintText: 'MM/YY',
           validator: validateDate,
+          secondaryColor: secondaryColor,
+          textColor: textColor,
           initialValue: _getInitialExpiryMonth(card),
           onSaved: onSaved,
           inputFormatters: [

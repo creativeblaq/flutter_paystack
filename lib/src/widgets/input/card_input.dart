@@ -5,10 +5,12 @@ import 'package:flutter_paystack/src/models/card.dart';
 import 'package:flutter_paystack/src/widgets/buttons.dart';
 import 'package:flutter_paystack/src/widgets/input/cvc_field.dart';
 import 'package:flutter_paystack/src/widgets/input/date_field.dart';
+import 'package:flutter_paystack/src/widgets/input/name_field.dart';
 import 'package:flutter_paystack/src/widgets/input/number_field.dart';
 
 class CardInput extends StatefulWidget {
   final String buttonText;
+  final bool showNameField;
   final PaymentCard? card;
   final ValueChanged<PaymentCard?> onValidated;
 
@@ -17,6 +19,7 @@ class CardInput extends StatefulWidget {
     required this.buttonText,
     required this.card,
     required this.onValidated,
+    required this.showNameField,
   }) : super(key: key);
 
   @override
@@ -56,6 +59,18 @@ class _CardInputState extends State<CardInput> {
       key: _formKey,
       child: new Column(
         children: <Widget>[
+          Visibility(
+              visible: widget.showNameField,
+              child: NameField(
+                  key: Key("CardHolderKey"),
+                  onSaved: (val) {
+                    if (val != null) {
+                      _card!.name = val.trim();
+                    }
+                  })),
+          new SizedBox(
+            height: 15.0,
+          ),
           new NumberField(
             key: Key("CardNumberKey"),
             controller: numberController,

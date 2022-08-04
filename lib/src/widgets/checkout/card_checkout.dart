@@ -20,6 +20,8 @@ class CardCheckout extends StatefulWidget {
   final bool hideAmount;
   final CardServiceContract service;
   final String publicKey;
+  final bool showNameField;
+  final String? buttonText;
 
   CardCheckout({
     Key? key,
@@ -29,7 +31,9 @@ class CardCheckout extends StatefulWidget {
     required this.onCardChange,
     required this.service,
     required this.publicKey,
-    this.hideAmount = false,
+    this.hideAmount =false,
+    required this.showNameField,
+    this.buttonText,
   }) : super(key: key);
 
   @override
@@ -61,9 +65,11 @@ class _CardCheckoutState extends BaseCheckoutMethodState<CardCheckout> {
           ),
           new CardInput(
             key: Key("CardInput"),
-            buttonText: widget.hideAmount ? "Continue" : 'Pay $amountText',
+            buttonText: widget.buttonText ??
+                (widget.hideAmount ? "Continue" : 'Pay $amountText'),
             card: _charge.card,
             onValidated: _onCardValidated,
+            showNameField: widget.showNameField,
           ),
         ],
       ),
@@ -86,11 +92,16 @@ class _CardCheckoutState extends BaseCheckoutMethodState<CardCheckout> {
   }
 
   void _chargeCard(Charge charge) async {
+     var amountText =
+        _charge.amount.isNegative ? '' : Utils.formatAmount(_charge.amount);
     final response = await CardTransactionManager(
       charge: charge,
       context: context,
       service: widget.service,
       publicKey: widget.publicKey,
+      showNameField: widget.showNameField, 
+      buttonText: widget.buttonText ??
+                (widget.hideAmount ? "Continue" : 'Pay $amountText'),
     ).chargeCard();
     onResponse(response);
   }

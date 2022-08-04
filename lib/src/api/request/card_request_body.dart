@@ -12,6 +12,7 @@ class CardRequestBody extends BaseRequestBody {
   static const String fieldAccessCode = "access_code";
   static const String fieldPublicKey = "public_key";
   static const String fieldEmail = "email";
+  //static const String fieldName = "account_name";
   static const String fieldAmount = "amount";
   static const String fieldReference = "reference";
   static const String fieldSubAccount = "subaccount";
@@ -27,6 +28,7 @@ class CardRequestBody extends BaseRequestBody {
   final String? _publicKey;
   String? _accessCode;
   String? _email;
+  //String? _name;
   String _amount;
   String? _reference;
   String? _subAccount;
@@ -42,6 +44,7 @@ class CardRequestBody extends BaseRequestBody {
       : this._clientData = clientData,
         this._last4 = charge.card!.last4Digits,
         this._email = charge.email,
+        //this._name = charge.card!.name,
         this._amount = charge.amount.toString(),
         this._reference = charge.reference,
         this._subAccount = charge.subAccount,
@@ -89,6 +92,7 @@ class CardRequestBody extends BaseRequestBody {
     params[fieldLast4] = _last4;
     params[fieldAccessCode] = _accessCode;
     params[fieldEmail] = _email;
+    //params[fieldName] = _name;
     params[fieldAmount] = _amount;
     params[fieldHandle] = _handle;
     params[fieldReference] = _reference;

@@ -30,13 +30,14 @@ void main() {
       testWidgets("is supplied", (tester) async {
         final checkoutWidget = buildTestWidget(
           CheckoutWidget(
+            showNameField: false,
             publicKey: publicKey,
             bankService: MockedBankService(),
             cardsService: MockedCardService(),
             method: CheckoutMethod.card,
             charge: charge,
             fullscreen: false,
-            logo: Container(),
+            logo: Container(), buttonText: 'Pay',
           ),
         );
 

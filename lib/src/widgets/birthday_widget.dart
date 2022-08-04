@@ -44,7 +44,7 @@ class _BirthdayWidgetState extends BaseState<BirthdayWidget> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.w500,
-                color: Colors.black87,
+                //color: Colors.black87,
                 fontSize: 15.0,
               ),
             ),
@@ -100,10 +100,10 @@ class _BirthdayWidgetState extends BaseState<BirthdayWidget> {
           builder: (BuildContext context) => Container(
                 height: _kPickerSheetHeight,
                 padding: const EdgeInsets.only(top: 6.0),
-                color: CupertinoColors.white,
+                //color: CupertinoColors.white,
                 child: DefaultTextStyle(
                   style: const TextStyle(
-                    color: CupertinoColors.black,
+                    //color: CupertinoColors.black,
                     fontSize: 22.0,
                   ),
                   child: GestureDetector(
@@ -145,7 +145,7 @@ class _BirthdayWidgetState extends BaseState<BirthdayWidget> {
       margin: const EdgeInsets.symmetric(horizontal: 2.0),
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
       decoration: const BoxDecoration(
-          color: Colors.white,
+          //color: Colors.white,
           borderRadius: const BorderRadius.all(const Radius.circular(3.0)),
           border:
               const Border(top: side, right: side, bottom: side, left: side)),
@@ -155,7 +155,7 @@ class _BirthdayWidgetState extends BaseState<BirthdayWidget> {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(
-          color: Colors.black87,
+          //color: Colors.black87,
           fontWeight: FontWeight.w500,
         ),
       ),

@@ -8,7 +8,11 @@ import 'package:flutter_paystack/src/widgets/input/card_input.dart';
 class CardInputWidget extends StatefulWidget {
   final PaymentCard? card;
 
-  CardInputWidget(this.card);
+  final bool showNameField;
+  
+  final String? buttonText;
+
+  CardInputWidget(this.card, this.showNameField, this.buttonText);
 
   @override
   _CardInputWidgetState createState() {
@@ -41,9 +45,10 @@ class _CardInputWidgetState extends BaseState<CardInputWidget> {
                 height: 35.0,
               ),
               new CardInput(
-                buttonText: 'Continue',
+                buttonText: widget.buttonText??"Pay",
                 card: widget.card,
                 onValidated: _onCardValidated,
+                showNameField: widget.showNameField,
               ),
               new SizedBox(
                 height: 10.0,

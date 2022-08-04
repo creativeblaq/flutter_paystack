@@ -236,7 +236,7 @@ class PaymentCard {
   String toString() {
     return 'PaymentCard{_cvc: $_cvc, expiryMonth: $expiryMonth, expiryYear: '
         '$expiryYear, _type: $_type, _last4Digits: $_last4Digits , _number: '
-        '$_number}';
+        '$_number, _name: $name}';
   }
 }
 

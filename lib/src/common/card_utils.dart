@@ -95,12 +95,14 @@ class CardUtils {
       throw new CardException("Card cannot be null");
     }
 
+    //String? name = StringUtils.nullify(card.name);
     String? number = StringUtils.nullify(card.number);
     String? cvc = StringUtils.nullify(card.cvc);
     int expiryMonth = card.expiryMonth ?? 0;
     int expiryYear = card.expiryYear ?? 0;
 
     var cardFields = [
+      //name,
       number,
       cvc,
       expiryMonth.toString(),

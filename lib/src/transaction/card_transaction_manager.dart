@@ -17,12 +17,17 @@ class CardTransactionManager extends BaseTransactionManager {
   late CardRequestBody chargeRequestBody;
   final CardServiceContract service;
   var _invalidDataSentRetries = 0;
+  final bool showNameField;
+  final String? buttonText;
 
   CardTransactionManager(
       {required Charge charge,
       required this.service,
       required BuildContext context,
-      required String publicKey})
+      required String publicKey,
+      required this.showNameField,
+      required this.buttonText, 
+      })
       : assert(charge.card != null,
             'please add a card to the charge before ' 'calling chargeCard'),
         super(charge: charge, context: context, publicKey: publicKey);
@@ -37,7 +42,7 @@ class CardTransactionManager extends BaseTransactionManager {
   Future<CheckoutResponse> chargeCard() async {
     try {
       if (charge.card == null || !charge.card!.isValid()) {
-        return getCardInfoFrmUI(charge.card);
+        return getCardInfoFrmUI(charge.card,showNameField,buttonText);
       } else {
         await initiate();
         return sendCharge();
@@ -93,7 +98,7 @@ class CardTransactionManager extends BaseTransactionManager {
 
   @override
   Future<CheckoutResponse> handleApiResponse(
-      TransactionApiResponse apiResponse) async {
+      TransactionApiResponse apiResponse,) async {
     var status = apiResponse.status;
     if (status == '1' || status == 'success') {
       setProcessingOff();

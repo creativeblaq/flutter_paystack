@@ -5,15 +5,20 @@ import 'package:flutter_paystack/src/models/card.dart';
 import 'package:flutter_paystack/src/widgets/input/base_field.dart';
 
 class CVCField extends BaseTextField {
+
+  final Color? secondaryColor;
+  final Color? textColor;
   CVCField({
     Key? key,
     required PaymentCard? card,
-    required FormFieldSetter<String> onSaved,
+    required FormFieldSetter<String> onSaved,this.secondaryColor, this.textColor, 
   }) : super(
           key: key,
           labelText: 'CVV',
           hintText: '123',
           onSaved: onSaved,
+          secondaryColor: secondaryColor,
+          textColor: textColor,
           validator: (String? value) => validateCVC(value, card),
           initialValue:
               card != null && card.cvc != null ? card.cvc.toString() : null,

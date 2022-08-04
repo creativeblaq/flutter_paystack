@@ -37,7 +37,7 @@ class _PinWidgetState extends BaseState<PinWidget> {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontWeight: FontWeight.w500,
-                  color: Colors.black87,
+                  //color: Colors.black87,
                   fontSize: 15.0,
                 ),
               ),
@@ -76,7 +76,7 @@ class _PinWidgetState extends BaseState<PinWidget> {
         children: List.generate(
             _startCount,
             (i) => star(i == (_startCount - 1)
-                ? Theme.of(context).accentColor
+                ? Theme.of(context).colorScheme.secondary
                 : Theme.of(context).primaryColorLight)),
       ),
     );
