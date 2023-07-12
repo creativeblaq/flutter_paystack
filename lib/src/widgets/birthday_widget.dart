@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_paystack/src/widgets/base_widget.dart';
 import 'package:flutter_paystack/src/widgets/buttons.dart';
+import 'package:flutter_paystack/src/widgets/common/extensions.dart';
 import 'package:flutter_paystack/src/widgets/custom_dialog.dart';
 import 'package:intl/intl.dart';
 
@@ -42,7 +43,7 @@ class _BirthdayWidgetState extends BaseState<BirthdayWidget> {
             new Text(
               widget.message,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w500,
                 //color: Colors.black87,
                 fontSize: 15.0,

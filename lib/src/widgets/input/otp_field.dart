@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class OtpField extends TextFormField {
   OtpField({FormFieldSetter<String>? onSaved, required Color borderColor})
@@ -24,7 +23,7 @@ class OtpField extends TextFormField {
             hintStyle: TextStyle(color: Colors.grey[700]!, fontSize: 14.0),
             contentPadding: const EdgeInsets.all(10.0),
             enabledBorder: OutlineInputBorder(
-                borderSide:  BorderSide(color: Colors.grey[700]!, width: 0.5)),
+                borderSide: BorderSide(color: Colors.grey[700]!, width: 0.5)),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: borderColor, width: 1.0)),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/src/widgets/base_widget.dart';
+import 'package:flutter_paystack/src/widgets/common/extensions.dart';
 import 'package:flutter_paystack/src/widgets/custom_dialog.dart';
 import 'package:flutter_paystack/src/widgets/input/otp_field.dart';
 
@@ -39,7 +40,7 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
                 new Text(
                   widget.message!,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
                     //color: Colors.black87,
                     fontSize: 15.0,
@@ -50,7 +51,7 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: new OtpField(
                     onSaved: (String? value) => _otp = value,
-                    borderColor: Theme.of(context).colorScheme.secondary,
+                    borderColor: context.colorScheme().secondary,
                   ),
                 ),
                 heightBox,

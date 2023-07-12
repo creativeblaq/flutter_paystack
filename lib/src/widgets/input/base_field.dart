@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_paystack/src/widgets/common/extensions.dart';
 
 class BaseTextField extends StatelessWidget {
   final Widget? suffix;
@@ -25,7 +26,8 @@ class BaseTextField extends StatelessWidget {
     this.controller,
     this.initialValue,
     this.secondaryColor,
-    this.textColor, this.isNumberField =true,
+    this.textColor,
+    this.isNumberField = true,
   }) : super(key: key);
 
   @override
@@ -39,8 +41,7 @@ class BaseTextField extends StatelessWidget {
       validator: validator,
       maxLines: 1,
       initialValue: initialValue,
-      keyboardType: isNumberField?
-      TextInputType.number:TextInputType.name,
+      keyboardType: isNumberField ? TextInputType.number : TextInputType.name,
       style: TextStyle(color: textColor),
       decoration: new InputDecoration(
         border: OutlineInputBorder(),

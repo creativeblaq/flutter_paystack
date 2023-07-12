@@ -10,6 +10,7 @@ import 'package:flutter_paystack/src/widgets/base_widget.dart';
 import 'package:flutter_paystack/src/widgets/checkout/bank_checkout.dart';
 import 'package:flutter_paystack/src/widgets/checkout/card_checkout.dart';
 import 'package:flutter_paystack/src/widgets/checkout/checkout_method.dart';
+import 'package:flutter_paystack/src/widgets/common/extensions.dart';
 import 'package:flutter_paystack/src/widgets/custom_dialog.dart';
 import 'package:flutter_paystack/src/widgets/error_widget.dart';
 import 'package:flutter_paystack/src/widgets/sucessful_widget.dart';
@@ -192,7 +193,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text(
+              Text(
                 'Pay',
                 style: const TextStyle(
                   fontSize: 14.0,
@@ -205,8 +206,8 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
                   child: Text(Utils.formatAmount(_charge.amount),
                       style: TextStyle(
                           fontSize: 15.0,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
-                          fontWeight: FontWeight.w500)))
+                          color: context.textTheme().headline6?.color,
+                          fontWeight: FontWeight.bold)))
             ],
           )
       ],
@@ -248,7 +249,6 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
   Widget buildCheckoutMethods(Color secondary) {
     return AnimatedSize(
       duration: const Duration(milliseconds: 300),
-      vsync: this,
       curve: Curves.fastOutSlowIn,
       child: new Container(
         // color: Colors.grey.withOpacity(0.1),
